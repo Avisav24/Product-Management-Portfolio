@@ -27,14 +27,14 @@ export default function Home() {
           </div>
           <Link 
             href="#contact" 
-            className="hidden sm:inline-flex items-center justify-center h-10 px-6 rounded-lg bg-[var(--accent)] text-white text-xs font-semibold hover:bg-[var(--accent-hover)] transition-all"
+            className="hidden sm:inline-flex items-center justify-center h-10 px-6 rounded-full bg-[var(--accent)] text-white text-xs font-semibold hover:bg-[var(--accent-hover)] transition-all"
           >
             Get in Touch
           </Link>
         </div>
       </nav>
 
-      <div className="relative mx-auto max-w-[1280px] px-6 lg:px-20 pt-32 pb-20">
+      <div className="relative mx-auto max-w-[1280px] px-6 lg:px-20 pt-16 pb-20">
         
         {/* Hero Section */}
         <section className="section">
