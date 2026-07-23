@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Light Editorial Theme */
+  --bg: #FAFAF9;
+  --surface: #FFFFFF;
+  --surface-hover: #F5F5F4;
+  --ink: #171717;
+  --ink-secondary: #404040;
+  --muted: #737373;
+  --line: #E5E5E5;
+  --soft: #F5F5F4;
+  --accent: #475569;
+  --accent-soft: #F1F5F9;
+  --accent-hover: #334155;
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+  
+  html { 
+    scroll-behavior: smooth; 
+    scroll-padding-top: 88px; 
+  }
+  
+  body { 
+    margin: 0; 
+    background: var(--bg); 
+    color: var(--ink-secondary); 
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility; 
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  a { 
+    text-decoration: none; 
+    color: inherit; 
+  }
+  
+  button { 
+    font: inherit; 
+    cursor: pointer;
+  }
+  
+  ::selection { 
+    background: var(--accent-soft); 
+    color: var(--accent); 
+  }
+}
+
+/* Layout Utilities */
+.shell {
+  width: min(1280px, 100%);
+  margin: auto;
+  padding-inline: clamp(24px, 5vw, 80px);
+}
+
+.section {
+  padding-block: clamp(96px, 12vw, 160px);
+  position: relative;
+}
+
+/* Editorial Card */
+.editorial-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.editorial-card:hover {
+  border-color: #D4D4D4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Typography System */
+.headline-primary {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+
+.headline-secondary {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+
+.body-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-secondary);
+}
+
+.body-text-muted {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* Button Styles */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 32px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(71, 85, 105, 0.2);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 32px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+/* Divider */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--line);
+  margin: clamp(48px, 8vw, 96px) 0;
+}
+
+/* Hide scrollbar */
+.hide-scrollbar::-webkit-scrollbar { 
+  display: none; 
+}
+
+.hide-scrollbar { 
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { 
+    scroll-behavior: auto; 
+  }
+  
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Responsive typography scaling */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+}

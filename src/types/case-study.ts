@@ -1,0 +1,28 @@
+export type Evidence = "Public evidence" | "Hypothesis" | "Illustrative" | "Target" | "Validated outcome";
+export type Metric = { label: string; value: string; note?: string };
+export type Card = { title: string; text: string; tag?: string };
+export type Journey = { title: string; friction: string; opportunity: string };
+export type RiceItem = { title: string; reach: number; impact: number; confidence: number; effort: number; score: number; selected?: boolean };
+export type CaseStudy = {
+  slug: string; company: string; eyebrow: string; title: string; subtitle: string;
+  tags: string[]; role: string; timeline: string; status: string; readingTime: string;
+  metrics: Metric[]; summary: Card[]; problem: string; pains: Card[];
+  model: string[]; personas: Card[]; jtbd: Card[]; coreJtbd: string;
+  research: Card[]; journey: Journey[]; opportunities: Card[];
+  competitors: Card[]; features: Card[]; rice: RiceItem[];
+  mvp: { title: string; subtitle: string; features: Card[] };
+  prd: { title: string; content: string[] }[];
+  flow: string[]; wireframes: Card[]; analytics: Metric[];
+  experiments: Card[]; roadmap: Card[]; risks: Card[]; reflection: Card[];
+  next: { label: string; href?: string };
+  origin?: { stage: string; insight: string }[];
+  validation?: { phase: string; outcome: string; evidence: string }[];
+  interviews?: { role: string; quote: string; insight: string }[];
+  decisions?: { decision: string; alternative: string; tradeoff: string; outcome: string }[];
+  pricing?: { problem: string; strategy: string; rationale: string }[];
+  failures?: { title: string; cause: string; learning: string; fix: string }[];
+  founderReflection?: { category: string; insights: string[] }[];
+  rootCause?: { problem: string; whys: string[]; ost: Card[] };
+  gtm?: { phase: string; actions: string[] }[];
+  impact?: Metric[];
+};
