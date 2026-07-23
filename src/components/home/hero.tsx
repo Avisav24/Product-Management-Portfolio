@@ -7,7 +7,7 @@ export function Hero() {
 
       {/* Main Headline */}
       <h1 className="headline-primary text-5xl sm:text-6xl lg:text-7xl max-w-4xl mb-8">
-        Building products through user behavior and business priorities.
+        Building products through user <span className="text-[var(--accent)]">behavior</span> and business priorities.
       </h1>
 
       {/* Supporting Text */}
