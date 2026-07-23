@@ -2,20 +2,12 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="flex flex-col items-start max-w-4xl pt-12 sm:pt-20">
+    <section className="flex flex-col items-start max-w-4xl pt-4 sm:pt-8">
       
-      {/* Role Badge */}
-      <div className="badge mb-8">
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--accent)]"></span>
-        </span>
-        Product Manager
-      </div>
 
       {/* Main Headline */}
       <h1 className="headline-primary text-5xl sm:text-6xl lg:text-7xl max-w-4xl mb-8">
-        I think about products through user behavior, business priorities, and execution realities.
+        Building products through user behavior and business priorities.
       </h1>
 
       {/* Supporting Text */}
