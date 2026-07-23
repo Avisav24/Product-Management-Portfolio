@@ -71,7 +71,7 @@ export function CaseStudies() {
       </div>
 
       {/* Case Study List */}
-      <div className="space-y-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         {CASE_STUDIES.map((study) => (
           <article 
             key={study.slug} 

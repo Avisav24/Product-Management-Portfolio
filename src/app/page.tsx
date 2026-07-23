@@ -6,7 +6,6 @@ import { Experience } from "@/components/home/experience";
 import { CrossFunctional } from "@/components/home/cross-functional";
 import { Tools } from "@/components/home/tools";
 import { CaseStudies } from "@/components/home/case-studies";
-import { Certifications } from "@/components/home/certifications";
 import { Contact } from "@/components/home/contact";
 import { Footer } from "@/components/home/footer";
 
@@ -76,11 +75,6 @@ export default function Home() {
         {/* Working Stack - Tools */}
         <section className="section">
           <Tools />
-        </section>
-
-        {/* Certifications */}
-        <section className="section">
-          <Certifications />
         </section>
 
         <div className="divider" />

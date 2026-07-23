@@ -11,9 +11,9 @@
   --muted: #737373;
   --line: #E5E5E5;
   --soft: #F5F5F4;
-  --accent: #475569;
-  --accent-soft: #F1F5F9;
-  --accent-hover: #334155;
+  --accent: #1e40af;
+  --accent-soft: #dbeafe;
+  --accent-hover: #1e3a8a;
 }
 
 @layer base {
@@ -60,7 +60,7 @@
 }
 
 .section {
-  padding-block: clamp(96px, 12vw, 160px);
+  padding-block: clamp(40px, 6vw, 80px);
   position: relative;
 }
 
