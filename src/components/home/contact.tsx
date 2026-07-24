@@ -42,7 +42,7 @@ export function Contact() {
           <Linkedin size={20} />
         </a>
         <a 
-          href="https://github.com/abhinavvats" 
+          href="https://github.com/Avisav24" 
           target="_blank"
           rel="noopener noreferrer"
           className="h-12 w-12 flex items-center justify-center rounded-none border border-[var(--line)] text-[var(--ink-secondary)] hover:border-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--accent-soft)] transition-all"
