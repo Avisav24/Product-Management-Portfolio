@@ -49,7 +49,7 @@ export function HowIThink() {
             
             {/* Number Badge */}
             <div className="flex items-center gap-3 mb-4">
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--accent-soft)] border border-[var(--accent)]/20">
+              <div className="flex items-center justify-center w-8 h-8 rounded-none bg-[var(--accent-soft)] border border-[var(--accent)]/20">
                 <span className="text-sm font-bold text-[var(--accent)]">
                   {idx + 1}
                 </span>

@@ -35,7 +35,7 @@ export function Testimonials() {
               &quot;{t.quote}&quot;
             </p>
             <div className="flex items-center gap-4">
-              <div className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-white border border-white/10">
+              <div className="h-10 w-10 rounded-none bg-white/10 flex items-center justify-center text-sm font-bold text-white border border-white/10">
                 {t.initial}
               </div>
               <div>

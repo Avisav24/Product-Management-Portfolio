@@ -43,43 +43,43 @@ const EXPERIENCES = [
 
 export function Experience() {
   return (
-    <div>
+    <div className="w-full bg-[#0a0f18] rounded-[32px] p-8 lg:p-16 border border-white/5 shadow-2xl">
       
       {/* Section Header */}
       <div className="mb-16">
-        <span className="section-label block mb-3">
+        <span className="text-[#a09d96] text-sm tracking-[0.1em] uppercase font-semibold block mb-3">
           Background
         </span>
-        <h2 className="headline-primary text-4xl sm:text-5xl mb-4">
+        <h2 className="type-display-xl !text-[#faf9f5] mb-4">
           Experience
         </h2>
       </div>
 
       {/* Experience Timeline */}
-      <div className="space-y-8">
+      <div className="space-y-6">
         {EXPERIENCES.map((exp, idx) => (
           <div 
             key={idx} 
-            className="editorial-card p-8 lg:p-10 flex flex-col lg:flex-row lg:items-start justify-between gap-6"
+            className="p-8 lg:p-10 flex flex-col lg:flex-row lg:items-start justify-between gap-6 bg-white/5 rounded-[24px] border border-white/10 hover:bg-white/10 transition-colors"
           >
             <div className="flex-1">
-              <h3 className="headline-secondary text-xl lg:text-2xl mb-2">
+              <h3 className="type-title-md !text-[#faf9f5] mb-2 font-sans">
                 {exp.role}
               </h3>
-              <p className="text-[var(--accent)] font-semibold text-sm mb-6">
+              <p className="text-[var(--primary)] font-semibold text-sm mb-6 font-sans">
                 {exp.company}
               </p>
               <ul className="space-y-3">
                 {exp.description.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-[var(--ink-secondary)] leading-relaxed">
-                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--accent)] shrink-0"></span>
+                  <li key={i} className="flex items-start gap-3 text-sm text-[#a09d96] leading-relaxed font-sans">
+                    <span className="mt-2 w-1.5 h-1.5 bg-[var(--primary)] shrink-0 rounded-full"></span>
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
             <div className="shrink-0 lg:pt-1">
-              <span className="inline-flex rounded-lg bg-[var(--soft)] border border-[var(--line)] px-4 py-2 text-xs font-semibold text-[var(--muted)]">
+              <span className="inline-flex bg-white/5 border border-white/10 px-4 py-2 text-xs font-semibold text-[#a09d96] rounded-md font-sans">
                 {exp.date}
               </span>
             </div>

@@ -35,9 +35,9 @@ export function Certifications() {
       {/* Certifications Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {CERTS.map((cert, idx) => (
-          <div key={idx} className="editorial-card p-8 group cursor-pointer hover:shadow-md transition-all">
+          <div key={idx} className="editorial-card p-8 group cursor-pointer transition-all">
             <div className="flex items-center justify-between mb-6">
-              <div className="h-12 w-12 bg-[var(--accent-soft)] border border-[var(--accent)]/20 rounded-lg flex items-center justify-center text-[var(--accent)]">
+              <div className="h-12 w-12 bg-[var(--accent-soft)] border border-[var(--accent)]/20 rounded-none flex items-center justify-center text-[var(--accent)]">
                 <Award size={22} />
               </div>
               <ArrowUpRight size={16} className="text-[var(--muted)] group-hover:text-[var(--accent)] transition-colors" />

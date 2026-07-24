@@ -47,7 +47,7 @@ export function CrossFunctional() {
         {STRENGTHS.map((strength, idx) => (
           <div 
             key={idx} 
-            className="editorial-card p-8 flex flex-col hover:shadow-md transition-shadow"
+            className="editorial-card p-8 flex flex-col"
           >
             <h3 className="headline-secondary text-lg mb-3">
               {strength.title}

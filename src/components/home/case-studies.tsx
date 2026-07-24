@@ -4,116 +4,90 @@ import logoSnabbit from "@/assets/logos/1.svg";
 import logoPronto from "@/assets/logos/2.svg";
 import logoOla from "@/assets/logos/3.svg";
 import logoGradely from "@/assets/logos/4.svg";
-import { ArrowUpRight } from "lucide-react";
 
 const CASE_STUDIES = [
   {
     slug: "gradely",
     name: "Gradely",
+    title: "Student Marketplace MVP",
     logo: logoGradely,
-    category: "Marketplace Building",
-    role: "Co-Founder & Product Owner",
-    problem: "Students need reliable services, providers need discovery and trust",
-    approach: "Built manual concierge MVP, validated pricing, automated platform with quality controls",
-    result: "₹26K+ revenue • 15% take rate • <2% refund rate • 100+ active users",
-    tags: ["0→1 Product", "Unit Economics", "Two-Sided Marketplace"],
+    desc: "Built a two-sided student service marketplace from manual WhatsApp concierge to an automated platform processing ₹26K+ in bootstrapped revenue.",
+    isDark: false,
   },
   {
     slug: "pronto",
     name: "Pronto",
+    title: "Activation Strategy",
     logo: logoPronto,
-    category: "Activation Strategy",
-    role: "Product Teardown",
-    problem: "New supply-side applicants experience friction completing their first booking",
-    approach: "Mapped onboarding journey, identified drop-off points, proposed activation loops",
-    result: "Supply activation framework • Onboarding redesign proposal",
-    tags: ["Supply Activation", "Friction Mapping", "Onboarding"],
+    desc: "Analyzed supply-side friction to propose a redesigned onboarding flow that accelerates how fast new applicants complete their first booking.",
+    isDark: true, // alternates to dark mockup style
   },
   {
     slug: "snabbit",
     name: "Snabbit",
+    title: "Retention Engine",
     logo: logoSnabbit,
-    category: "Retention Engine",
-    role: "Product Teardown",
-    problem: "One-off transactional bookings lead to high churn and unpredictable revenue",
-    approach: "Designed 90-day retention mechanics through subscriptions and trust-building loops",
-    result: "Retention strategy framework • Habit formation mechanics",
-    tags: ["Retention", "Subscription Models", "Habit Loops"],
+    desc: "Explored mechanisms to shift one-off transactional bookings into predictable 90-day retention habits through subscription models and trust loops.",
+    isDark: false,
   },
   {
     slug: "ola",
     name: "Ola",
+    title: "Enterprise Scale",
     logo: logoOla,
-    category: "Enterprise Strategy",
-    role: "Strategic Teardown",
-    problem: "Capturing high-frequency urban commuters to maximize customer lifetime value",
-    approach: "Analyzed subscription pass economics, priority dispatch, and LTV optimization",
-    result: "Enterprise strategy analysis • LTV maximization framework",
-    tags: ["Enterprise Product", "LTV Strategy", "Subscription"],
+    desc: "Evaluated enterprise product strategy to capture high-frequency urban commuters through subscription passes and priority dispatch mechanics.",
+    isDark: true, // alternates to dark mockup style
   },
 ];
 
 export function CaseStudies() {
   return (
-    <div>
+    <div className="w-full">
       
       {/* Section Header */}
-      <div className="mb-16">
-        <span className="section-label block mb-3">
-          Selected Work
-        </span>
-        <h2 className="headline-primary text-4xl sm:text-5xl mb-4">
-          Case Studies
+      <div className="mb-12">
+        <h2 className="type-display-lg mb-4">
+          Product Case Studies
         </h2>
-        <p className="body-text-muted max-w-2xl">
+        <p className="type-body-md max-w-2xl text-[var(--muted)]">
           A selection of product work focused on activation, retention, marketplace dynamics, and strategic decision-making.
         </p>
       </div>
 
-      {/* Case Study List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+      {/* Alternating Feature Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {CASE_STUDIES.map((study) => (
-          <article 
+          <div 
             key={study.slug} 
-            className="editorial-card overflow-hidden group flex flex-col"
+            className={`flex flex-col min-h-[320px] ${study.isDark ? 'mockup-card-dark' : 'feature-card'}`}
           >
-            {/* Logo */}
-            <div className="flex items-center justify-center bg-[var(--soft)] p-8 border-b border-[var(--line)]">
+            
+            {/* Header / Logo */}
+            <div className="mb-8 h-12">
               <Image
                 src={study.logo}
                 alt={study.name}
-                className="h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                className="h-10 w-auto object-contain"
               />
             </div>
-
-            {/* Content */}
-            <div className="p-6 flex flex-col flex-1">
-              
-              {/* Category Badge */}
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--accent)] border border-[var(--accent)]/20 bg-[var(--accent-soft)] px-3 py-1 rounded mb-4 inline-block self-start">
-                {study.category}
-              </span>
-              
-              {/* Company Name */}
-              <h3 className="headline-secondary text-xl mb-2">
-                {study.name}
+            
+            <div className="flex-1">
+              <h3 className={`type-title-md mb-2 ${study.isDark ? '!text-[#faf9f5]' : ''}`}>
+                {study.title}
               </h3>
-              
-              {/* Role */}
-              <p className="text-xs text-[var(--muted)] mb-6">
-                {study.role}
+              <p className={`type-body-md ${study.isDark ? '!text-[#a09d96]' : 'text-[var(--muted)]'} mb-8`}>
+                {study.desc}
               </p>
-              
-              {/* CTA Link */}
-              <Link
-                href={`/case-studies/${study.slug}`}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] transition-all hover:gap-3 mt-auto"
-              >
-                View case study
-                <ArrowUpRight size={16} className="transition-transform" />
-              </Link>
             </div>
-          </article>
+            
+            <Link
+              href={`/case-studies/${study.slug}`}
+              className={study.isDark ? 'btn-secondary-dark self-start' : 'btn-secondary self-start'}
+            >
+              Read full teardown
+            </Link>
+            
+          </div>
         ))}
       </div>
     </div>

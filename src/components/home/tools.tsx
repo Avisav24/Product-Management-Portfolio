@@ -53,7 +53,7 @@ export function Tools() {
               {group.items.map((tool) => (
                 <span 
                   key={tool}
-                  className="inline-flex items-center px-3 py-1.5 rounded-md bg-[var(--surface)] border border-[var(--line)] text-xs font-medium text-[var(--ink-secondary)] hover:border-[var(--accent)] hover:bg-[var(--accent-soft)] transition-all"
+                  className="inline-flex items-center px-3 py-1.5 bg-[var(--surface)] border border-[var(--line)] text-xs font-medium text-[var(--ink-secondary)] hover:border-[var(--accent)] hover:bg-[var(--accent-soft)] transition-all"
                 >
                   {tool}
                 </span>

@@ -38,7 +38,7 @@ export function HowIWork() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {CARDS.map((card, idx) => (
           <div key={idx} className="premium-card p-8 flex flex-col items-start text-left">
-            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10">
+            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-none bg-white/5 border border-white/10">
               {card.icon}
             </div>
             <h3 className="text-xl font-bold text-white mb-3">{card.title}</h3>

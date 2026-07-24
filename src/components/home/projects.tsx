@@ -77,7 +77,7 @@ export function Projects() {
               {/* Content Side */}
               <div className="p-8 md:p-12 flex flex-col justify-center">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 rounded">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 rounded-none">
                     {proj.category}
                   </span>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">
@@ -93,7 +93,7 @@ export function Projects() {
                   {proj.desc}
                 </p>
                 
-                <div className="mb-8 p-3 rounded-lg bg-white/5 border border-white/5 text-xs text-neutral-300 font-medium">
+                <div className="mb-8 p-3 rounded-none bg-white/5 border border-white/5 text-xs text-neutral-300 font-medium">
                   <strong className="text-white">Outcome:</strong> {proj.outcome}
                 </div>
                 

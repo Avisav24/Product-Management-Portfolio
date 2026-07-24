@@ -50,7 +50,7 @@ function Header() {
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-neutral-100">
       <div className="mx-auto max-w-[860px] px-4 sm:px-6 flex h-14 items-center justify-between text-sm">
         <Link href="/" className="font-medium text-neutral-600 hover:text-neutral-900 transition-colors">AV / Product</Link>
-        <Link href="/case-studies" className="text-neutral-500 hover:text-neutral-900 transition-colors">Case studies</Link>
+        <Link href="/#work" className="text-neutral-500 hover:text-neutral-900 transition-colors">Case studies</Link>
       </div>
     </nav>
   );
@@ -62,15 +62,19 @@ function Header() {
 
 export function CaseStudyLayout({ study }: { study: CaseStudy }) {
   const ids = useMemo(() => {
-    return [
-      "overview", study.origin ? "origin" : null, "problem", "research", 
+    const baseIds = [
+      study.summary ? "overview" : null, study.origin ? "origin" : null, study.problem ? "problem" : null, study.research ? "research" : null, 
       study.validation ? "validation" : null, study.interviews ? "interviews" : null, 
-      "journey", study.rootCause ? "rootCause" : null, "opportunities", 
-      "prioritization", "mvp", "prd", "analytics", "experiments", 
-      study.gtm ? "gtm" : null, "roadmap", study.decisions ? "decisions" : null, 
+      study.journey ? "journey" : null, study.rootCause ? "rootCause" : null, study.opportunities ? "opportunities" : null, 
+      study.rice ? "prioritization" : null, study.mvp ? "mvp" : null, study.prd ? "prd" : null, study.analytics ? "analytics" : null, study.experiments ? "experiments" : null, 
+      study.gtm ? "gtm" : null, study.roadmap ? "roadmap" : null, study.decisions ? "decisions" : null, 
       study.pricing ? "pricing" : null, study.failures ? "failures" : null, 
-      study.founderReflection ? "leadership" : null, "reflection", study.impact ? "impact" : null
+      study.founderReflection ? "leadership" : null, study.reflection ? "reflection" : null, study.impact ? "impact" : null
     ].filter(Boolean) as string[];
+
+    const articleIds = (study.articleSections || []).map(s => s.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'));
+    
+    return [...baseIds, ...articleIds];
   }, [study]);
 
   const [active, setActive] = useState(ids[0]);
@@ -88,17 +92,17 @@ export function CaseStudyLayout({ study }: { study: CaseStudy }) {
   }, [ids]);
 
   const logoSrc = logos[study.slug];
-  const isResearchHypothesis = study.research.some(r => r.tag === "Hypothesis" || r.text.includes("Hypothesis"));
+  const isResearchHypothesis = study.research?.some(r => r.tag === "Hypothesis" || r.text.includes("Hypothesis")) || false;
 
   return (
-    <div className="bg-[#FAFAFA] min-h-screen font-sans selection:bg-neutral-200">
+    <div className="bg-[var(--canvas)] min-h-screen type-body selection:bg-neutral-200">
       <Header />
       {/* Reading progress bar */}
-      <div className="fixed left-0 top-14 z-50 h-0.5 bg-neutral-900 transition-all duration-300" style={{ width: `${(ids.indexOf(active) + 1) / ids.length * 100}%` }} />
+      <div className="fixed left-0 top-14 z-50 h-0.5 bg-[var(--primary)] transition-all duration-300" style={{ width: `${(ids.indexOf(active) + 1) / ids.length * 100}%` }} />
       
-      {/* Page-like container */}
-      <div className="mx-auto max-w-[860px] px-4 sm:px-6 py-8 sm:py-12 lg:py-16">
-        <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-neutral-100 px-5 sm:px-10 md:px-16 py-10 sm:py-14 md:py-20">
+      {/* Wide Blog Container */}
+      <div className="mx-auto max-w-[1024px] px-6 sm:px-12 md:px-24 py-16 md:py-24">
+        <div className="bg-[var(--canvas)] text-[var(--ink)]">
         
           {/* HEADER — Logo as inline header, not boxed */}
           <header className="mb-12 sm:mb-16">
@@ -108,7 +112,7 @@ export function CaseStudyLayout({ study }: { study: CaseStudy }) {
               </div>
             )}
             
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mb-4 sm:mb-6 leading-tight">
+            <h1 className="type-display-xl mb-4 sm:mb-6">
               {study.title}
             </h1>
             
@@ -161,21 +165,25 @@ export function CaseStudyLayout({ study }: { study: CaseStudy }) {
           </div>
 
           {/* ARTICLE BODY */}
-          <article>
+          <article className="font-serif text-[17px] md:text-[19px] leading-[1.7] text-neutral-800 tracking-[-0.01em] [&_h2]:font-sans [&_h3]:font-sans [&_h4]:font-sans">
             
-            <Section id="overview" title="Executive Summary">
-              <p className="text-base sm:text-lg text-neutral-700 leading-relaxed mb-6">
-                This section provides a high-level overview of the problem, the discovery process, the solution approach, and the measurable impact of the product decisions made throughout this project.
-              </p>
-              <DetailedList items={study.summary} />
-              <div className="mt-8 sm:mt-10">
-                <h3 className="text-lg sm:text-xl font-semibold mb-4 text-neutral-900">Business Model</h3>
-                <p className="text-neutral-600 mb-4">The revenue engine and value chain for this product follows a clear sequence of steps, each representing a critical handoff point in the marketplace:</p>
-                <ol className="list-decimal pl-5 space-y-2 text-neutral-700">
-                  {study.model.map(m => <li key={m}>{m}</li>)}
-                </ol>
-              </div>
-            </Section>
+            {study.summary && (
+              <Section id="overview" title="Executive Summary">
+                <p className="text-base sm:text-lg text-neutral-700 leading-relaxed mb-6">
+                  This section provides a high-level overview of the problem, the discovery process, the solution approach, and the measurable impact of the product decisions made throughout this project.
+                </p>
+                <DetailedList items={study.summary} />
+                {study.model && (
+                  <div className="mt-8 sm:mt-10">
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4 text-neutral-900">Business Model</h3>
+                    <p className="text-neutral-600 mb-4">The revenue engine and value chain for this product follows a clear sequence of steps, each representing a critical handoff point in the marketplace:</p>
+                    <ol className="list-decimal pl-5 space-y-2 text-neutral-700">
+                      {study.model.map(m => <li key={m}>{m}</li>)}
+                    </ol>
+                  </div>
+                )}
+              </Section>
+            )}
 
             {study.origin && (
               <Section id="origin" title="Origin Story">
@@ -184,34 +192,52 @@ export function CaseStudyLayout({ study }: { study: CaseStudy }) {
               </Section>
             )}
 
-            <Section id="problem" title="The Problem">
-              <p className="text-base sm:text-lg mb-6 text-neutral-800 font-medium leading-relaxed">{study.problem}</p>
-              
-              <h3 className="text-lg sm:text-xl font-semibold mb-4 mt-10 text-neutral-900">Pain Points</h3>
-              <p className="text-neutral-600 mb-4">Through research and direct observation, the following core pain points emerged as the primary blockers to user satisfaction and product-market fit:</p>
-              <DetailedList items={study.pains} />
-              
-              <h3 className="text-lg sm:text-xl font-semibold mb-4 mt-10 text-neutral-900">User Segments</h3>
-              <p className="text-neutral-600 mb-4">Understanding who the users are and what drives their behavior is essential for prioritizing features and designing the right experience:</p>
-              <DetailedList items={study.personas} />
-              
-              <h3 className="text-lg sm:text-xl font-semibold mb-4 mt-10 text-neutral-900">Jobs to be Done</h3>
-              <p className="text-neutral-600 mb-4">The JTBD framework helps articulate the underlying motivations that drive user behavior beyond surface-level feature requests:</p>
-              <DetailedList items={study.jtbd} />
-              
-              <blockquote className="border-l-4 border-neutral-300 pl-4 sm:pl-6 my-8 italic text-neutral-700 bg-neutral-50 py-4 pr-4 rounded-r-lg text-base sm:text-lg">
-                &ldquo;{study.coreJtbd}&rdquo;
-              </blockquote>
-            </Section>
+            {study.problem && (
+              <Section id="problem" title="The Problem">
+                <p className="text-base sm:text-lg mb-6 text-neutral-800 font-medium leading-relaxed">{study.problem}</p>
+                
+                {study.pains && (
+                  <>
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4 mt-10 text-neutral-900">Pain Points</h3>
+                    <p className="text-neutral-600 mb-4">Through research and direct observation, the following core pain points emerged as the primary blockers to user satisfaction and product-market fit:</p>
+                    <DetailedList items={study.pains} />
+                  </>
+                )}
+                
+                {study.personas && (
+                  <>
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4 mt-10 text-neutral-900">User Segments</h3>
+                    <p className="text-neutral-600 mb-4">Understanding who the users are and what drives their behavior is essential for prioritizing features and designing the right experience:</p>
+                    <DetailedList items={study.personas} />
+                  </>
+                )}
+                
+                {study.jtbd && (
+                  <>
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4 mt-10 text-neutral-900">Jobs to be Done</h3>
+                    <p className="text-neutral-600 mb-4">The JTBD framework helps articulate the underlying motivations that drive user behavior beyond surface-level feature requests:</p>
+                    <DetailedList items={study.jtbd} />
+                  </>
+                )}
+                
+                {study.coreJtbd && (
+                  <blockquote className="border-l-4 border-neutral-300 pl-4 sm:pl-6 my-8 italic text-neutral-700 bg-neutral-50 py-4 pr-4 rounded-r-lg text-base sm:text-lg">
+                    &ldquo;{study.coreJtbd}&rdquo;
+                  </blockquote>
+                )}
+              </Section>
+            )}
 
-            <Section id="research" title={isResearchHypothesis ? "Research Plan & Hypotheses" : "Research & Evidence"}>
-              <p className="text-neutral-600 mb-6">
-                {isResearchHypothesis 
-                  ? "Before building anything, I formulated a set of hypotheses based on qualitative signals and industry patterns. Each hypothesis is designed to be testable and falsifiable:" 
-                  : "The research phase focused on gathering direct evidence from users and the market to validate assumptions and uncover latent needs:"}
-              </p>
-              <DetailedList items={study.research} />
-            </Section>
+            {study.research && (
+              <Section id="research" title={isResearchHypothesis ? "Research Plan & Hypotheses" : "Research & Evidence"}>
+                <p className="text-neutral-600 mb-6">
+                  {isResearchHypothesis 
+                    ? "Before building anything, I formulated a set of hypotheses based on qualitative signals and industry patterns. Each hypothesis is designed to be testable and falsifiable:" 
+                    : "The research phase focused on gathering direct evidence from users and the market to validate assumptions and uncover latent needs:"}
+                </p>
+                <DetailedList items={study.research} />
+              </Section>
+            )}
 
             {study.validation && (
               <Section id="validation" title="Market Validation">
@@ -244,27 +270,29 @@ export function CaseStudyLayout({ study }: { study: CaseStudy }) {
               </Section>
             )}
 
-            <Section id="journey" title="Customer Journey">
-              <p className="text-neutral-600 mb-6">Mapping the end-to-end customer journey reveals the friction points where users drop off and the opportunities where the product can deliver the most value:</p>
-              <div className="space-y-4">
-                {study.journey.map((j, idx) => (
-                  <div key={j.title} className="pl-4 border-l-2 border-neutral-200">
-                    <h4 className="font-semibold text-neutral-900 mb-2">
-                      <span className="text-neutral-400 mr-2">{String(idx + 1).padStart(2, '0')}.</span>
-                      {j.title}
-                    </h4>
-                    <div className="grid sm:grid-cols-2 gap-2 text-sm">
-                      <div className="bg-red-50/50 rounded px-3 py-2 border border-red-100">
-                        <span className="font-medium text-red-700">Friction:</span> <span className="text-neutral-700">{j.friction}</span>
-                      </div>
-                      <div className="bg-green-50/50 rounded px-3 py-2 border border-green-100">
-                        <span className="font-medium text-green-700">Opportunity:</span> <span className="text-neutral-700">{j.opportunity}</span>
+            {study.journey && (
+              <Section id="journey" title="Customer Journey">
+                <p className="text-neutral-600 mb-6">Mapping the end-to-end customer journey reveals the friction points where users drop off and the opportunities where the product can deliver the most value:</p>
+                <div className="space-y-4">
+                  {study.journey.map((j, idx) => (
+                    <div key={j.title} className="pl-4 border-l-2 border-neutral-200">
+                      <h4 className="font-semibold text-neutral-900 mb-2">
+                        <span className="text-neutral-400 mr-2">{String(idx + 1).padStart(2, '0')}.</span>
+                        {j.title}
+                      </h4>
+                      <div className="grid sm:grid-cols-2 gap-2 text-sm">
+                        <div className="bg-red-50/50 rounded px-3 py-2 border border-red-100">
+                          <span className="font-medium text-red-700">Friction:</span> <span className="text-neutral-700">{j.friction}</span>
+                        </div>
+                        <div className="bg-green-50/50 rounded px-3 py-2 border border-green-100">
+                          <span className="font-medium text-green-700">Opportunity:</span> <span className="text-neutral-700">{j.opportunity}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </Section>
+                  ))}
+                </div>
+              </Section>
+            )}
 
             {study.rootCause && (
               <Section id="rootCause" title="Root Cause Analysis (5 Whys)">
@@ -281,83 +309,104 @@ export function CaseStudyLayout({ study }: { study: CaseStudy }) {
               </Section>
             )}
 
-            <Section id="opportunities" title="Opportunity Tree">
-              <p className="text-neutral-600 mb-6">From the research and journey mapping, the following opportunities emerged as the highest-leverage areas for product intervention:</p>
-              <DetailedList items={study.opportunities} />
-              <h3 className="text-lg sm:text-xl font-semibold mb-4 mt-10 text-neutral-900">Competitive Landscape</h3>
-              <p className="text-neutral-600 mb-4">Understanding where competitors fall short helps define the strategic positioning and differentiation for this product:</p>
-              <DetailedList items={study.competitors} />
-            </Section>
+            {study.opportunities && (
+              <Section id="opportunities" title="Opportunity Tree">
+                <p className="text-neutral-600 mb-6">From the research and journey mapping, the following opportunities emerged as the highest-leverage areas for product intervention:</p>
+                <DetailedList items={study.opportunities} />
+                
+                {study.competitors && (
+                  <>
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4 mt-10 text-neutral-900">Competitive Landscape</h3>
+                    <p className="text-neutral-600 mb-4">Understanding where competitors fall short helps define the strategic positioning and differentiation for this product:</p>
+                    <DetailedList items={study.competitors} />
+                  </>
+                )}
+              </Section>
+            )}
 
-            <Section id="prioritization" title="RICE Prioritization">
-              <p className="text-neutral-600 mb-6">Features were scored using the RICE framework (Reach × Impact × Confidence ÷ Effort) to ensure resources are allocated to the highest-impact initiatives first:</p>
-              <div className="overflow-x-auto -mx-2 px-2">
-                <table className="min-w-full text-left text-sm border-collapse border border-neutral-200 rounded-lg overflow-hidden">
-                  <thead>
-                    <tr className="border-b border-neutral-200 bg-neutral-50">
-                      <th className="p-3 font-semibold text-neutral-900">Initiative</th>
-                      <th className="p-3 font-semibold text-neutral-900 text-right">Reach</th>
-                      <th className="p-3 font-semibold text-neutral-900 text-right">Impact</th>
-                      <th className="p-3 font-semibold text-neutral-900 text-right hidden sm:table-cell">Conf.</th>
-                      <th className="p-3 font-semibold text-neutral-900 text-right hidden sm:table-cell">Effort</th>
-                      <th className="p-3 font-semibold text-neutral-900 text-right">Score</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-neutral-100">
-                    {[...study.rice].sort((a, b) => b.score - a.score).map(r => (
-                      <tr key={r.title} className={r.selected ? "bg-blue-50/50" : ""}>
-                        <td className="p-3 font-medium text-neutral-900">
-                          <div className="flex items-center gap-2">
-                            {r.selected && <span className="h-2 w-2 rounded-full bg-blue-500 shrink-0" />}
-                            {r.title}
-                          </div>
-                        </td>
-                        <td className="p-3 text-neutral-600 text-right">{r.reach}</td>
-                        <td className="p-3 text-neutral-600 text-right">{r.impact}</td>
-                        <td className="p-3 text-neutral-600 text-right hidden sm:table-cell">{r.confidence}%</td>
-                        <td className="p-3 text-neutral-600 text-right hidden sm:table-cell">{r.effort}</td>
-                        <td className="p-3 font-bold text-neutral-900 text-right">{r.score}</td>
+            {study.rice && (
+              <Section id="prioritization" title="RICE Prioritization">
+                <p className="text-neutral-600 mb-6">Features were scored using the RICE framework (Reach × Impact × Confidence ÷ Effort) to ensure resources are allocated to the highest-impact initiatives first:</p>
+                <div className="overflow-x-auto -mx-2 px-2">
+                  <table className="min-w-full text-left text-sm border-collapse border border-neutral-200 rounded-lg overflow-hidden">
+                    <thead>
+                      <tr className="border-b border-neutral-200 bg-neutral-50">
+                        <th className="p-3 font-semibold text-neutral-900">Initiative</th>
+                        <th className="p-3 font-semibold text-neutral-900 text-right">Reach</th>
+                        <th className="p-3 font-semibold text-neutral-900 text-right">Impact</th>
+                        <th className="p-3 font-semibold text-neutral-900 text-right hidden sm:table-cell">Conf.</th>
+                        <th className="p-3 font-semibold text-neutral-900 text-right hidden sm:table-cell">Effort</th>
+                        <th className="p-3 font-semibold text-neutral-900 text-right">Score</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              
-              <h3 className="text-lg sm:text-xl font-semibold mb-4 mt-10 text-neutral-900">Feature Landscape</h3>
-              <p className="text-neutral-600 mb-4">The full list of features considered, tagged by whether they made it into the MVP or were deferred:</p>
-              <DetailedList items={study.features} />
-            </Section>
+                    </thead>
+                    <tbody className="divide-y divide-neutral-100">
+                      {[...study.rice].sort((a, b) => b.score - a.score).map(r => (
+                        <tr key={r.title} className={r.selected ? "bg-blue-50/50" : ""}>
+                          <td className="p-3 font-medium text-neutral-900">
+                            <div className="flex items-center gap-2">
+                              {r.selected && <span className="h-2 w-2 rounded-full bg-blue-500 shrink-0" />}
+                              {r.title}
+                            </div>
+                          </td>
+                          <td className="p-3 text-neutral-600 text-right">{r.reach}</td>
+                          <td className="p-3 text-neutral-600 text-right">{r.impact}</td>
+                          <td className="p-3 text-neutral-600 text-right hidden sm:table-cell">{r.confidence}%</td>
+                          <td className="p-3 text-neutral-600 text-right hidden sm:table-cell">{r.effort}</td>
+                          <td className="p-3 font-bold text-neutral-900 text-right">{r.score}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                
+                {study.features && (
+                  <>
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4 mt-10 text-neutral-900">Feature Landscape</h3>
+                    <p className="text-neutral-600 mb-4">The full list of features considered, tagged by whether they made it into the MVP or were deferred:</p>
+                    <DetailedList items={study.features} />
+                  </>
+                )}
+              </Section>
+            )}
 
-            <Section id="mvp" title={`Final MVP: ${study.mvp.title}`}>
-              <p className="mb-6 text-neutral-600 leading-relaxed">{study.mvp.subtitle}</p>
-              <p className="text-neutral-600 mb-4">The MVP was scoped to validate the core hypothesis with the minimum set of features needed to deliver real value:</p>
-              <DetailedList items={study.mvp.features} />
-              
-              <h3 className="text-lg sm:text-xl font-semibold mb-4 mt-10 text-neutral-900">User Flow</h3>
-              <p className="text-neutral-600 mb-4">The critical path from user entry to value delivery:</p>
-              <div className="flex flex-wrap items-center gap-2 text-sm text-neutral-700 bg-neutral-50 p-4 rounded-lg border border-neutral-100">
-                {study.flow.map((f, i) => (
-                  <span key={f} className="flex items-center gap-2">
-                    <span className="font-medium bg-white px-3 py-1.5 rounded border border-neutral-200 text-xs sm:text-sm">{f}</span>
-                    {i < study.flow.length - 1 && <span className="text-neutral-400">→</span>}
-                  </span>
-                ))}
-              </div>
-            </Section>
+            {study.mvp && (
+              <Section id="mvp" title={`Final MVP: ${study.mvp.title}`}>
+                <p className="mb-6 text-neutral-600 leading-relaxed">{study.mvp.subtitle}</p>
+                <p className="text-neutral-600 mb-4">The MVP was scoped to validate the core hypothesis with the minimum set of features needed to deliver real value:</p>
+                <DetailedList items={study.mvp.features} />
+                
+                {study.flow && (
+                  <>
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4 mt-10 text-neutral-900">User Flow</h3>
+                    <p className="text-neutral-600 mb-4">The critical path from user entry to value delivery:</p>
+                    <div className="flex flex-wrap items-center gap-2 text-sm text-neutral-700 bg-neutral-50 p-4 rounded-lg border border-neutral-100">
+                      {study.flow.map((f, i) => (
+                        <span key={f} className="flex items-center gap-2">
+                          <span className="font-medium bg-white px-3 py-1.5 rounded border border-neutral-200 text-xs sm:text-sm">{f}</span>
+                          {i < study.flow!.length - 1 && <span className="text-neutral-400">→</span>}
+                        </span>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </Section>
+            )}
 
-            <Section id="prd" title="PRD (Product Requirements)">
-              <p className="text-neutral-600 mb-6">The product requirements document defines the scope, constraints, and success criteria for the build phase:</p>
-              <div className="space-y-6">
-                {study.prd.map(p => (
-                  <div key={p.title}>
-                    <h3 className="font-semibold text-neutral-900 mb-2">{p.title}</h3>
-                    <ul className="list-disc pl-5 space-y-2 text-neutral-700">
-                      {p.content.map(x => <li key={x}>{x}</li>)}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </Section>
+            {study.prd && (
+              <Section id="prd" title="PRD (Product Requirements)">
+                <p className="text-neutral-600 mb-6">The product requirements document defines the scope, constraints, and success criteria for the build phase:</p>
+                <div className="space-y-6">
+                  {study.prd.map(p => (
+                    <div key={p.title}>
+                      <h3 className="font-semibold text-neutral-900 mb-2">{p.title}</h3>
+                      <ul className="list-disc pl-5 space-y-2 text-neutral-700">
+                        {p.content.map(x => <li key={x}>{x}</li>)}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </Section>
+            )}
 
             {study.decisions && (
               <Section id="decisions" title="Decision Log">
@@ -392,34 +441,38 @@ export function CaseStudyLayout({ study }: { study: CaseStudy }) {
               </Section>
             )}
 
-            <Section id="analytics" title="Analytics & Telemetry">
-              <p className="text-neutral-600 mb-6">The metrics framework defines what success looks like and ensures the team is measuring the right leading and lagging indicators:</p>
-              <div className="overflow-x-auto -mx-2 px-2">
-                <table className="min-w-full text-left text-sm border-collapse border border-neutral-200 rounded-lg overflow-hidden">
-                  <thead>
-                    <tr className="border-b border-neutral-200 bg-neutral-50">
-                      <th className="p-3 font-semibold text-neutral-900">Metric</th>
-                      <th className="p-3 font-semibold text-neutral-900">Target / Status</th>
-                      <th className="p-3 font-semibold text-neutral-900 hidden sm:table-cell">Notes</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-neutral-100">
-                    {study.analytics.map((m, i) => (
-                      <tr key={i}>
-                        <td className="p-3 font-medium text-neutral-900">{m.label}</td>
-                        <td className="p-3 font-bold text-neutral-900">{m.value}</td>
-                        <td className="p-3 text-neutral-600 hidden sm:table-cell">{m.note || "-"}</td>
+            {study.analytics && (
+              <Section id="analytics" title="Analytics & Telemetry">
+                <p className="text-neutral-600 mb-6">The metrics framework defines what success looks like and ensures the team is measuring the right leading and lagging indicators:</p>
+                <div className="overflow-x-auto -mx-2 px-2">
+                  <table className="min-w-full text-left text-sm border-collapse border border-neutral-200 rounded-lg overflow-hidden">
+                    <thead>
+                      <tr className="border-b border-neutral-200 bg-neutral-50">
+                        <th className="p-3 font-semibold text-neutral-900">Metric</th>
+                        <th className="p-3 font-semibold text-neutral-900">Target / Status</th>
+                        <th className="p-3 font-semibold text-neutral-900 hidden sm:table-cell">Notes</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </Section>
+                    </thead>
+                    <tbody className="divide-y divide-neutral-100">
+                      {study.analytics.map((m, i) => (
+                        <tr key={i}>
+                          <td className="p-3 font-medium text-neutral-900">{m.label}</td>
+                          <td className="p-3 font-bold text-neutral-900">{m.value}</td>
+                          <td className="p-3 text-neutral-600 hidden sm:table-cell">{m.note || "-"}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </Section>
+            )}
 
-            <Section id="experiments" title="Experiments & Validations">
-              <p className="text-neutral-600 mb-6">Each experiment was designed to test a specific hypothesis with clear success criteria before committing to a full build:</p>
-              <DetailedList items={study.experiments} />
-            </Section>
+            {study.experiments && (
+              <Section id="experiments" title="Experiments & Validations">
+                <p className="text-neutral-600 mb-6">Each experiment was designed to test a specific hypothesis with clear success criteria before committing to a full build:</p>
+                <DetailedList items={study.experiments} />
+              </Section>
+            )}
 
             {study.gtm && (
               <Section id="gtm" title="Go-To-Market Strategy">
@@ -437,13 +490,20 @@ export function CaseStudyLayout({ study }: { study: CaseStudy }) {
               </Section>
             )}
 
-            <Section id="roadmap" title="Roadmap & Next Steps">
-              <p className="text-neutral-600 mb-6">The roadmap is organized in a Now / Next / Later / Future framework to communicate both near-term commitments and long-term vision:</p>
-              <DetailedList items={study.roadmap} />
-              <h3 className="text-lg sm:text-xl font-semibold mb-4 mt-10 text-neutral-900">Risks & Mitigations</h3>
-              <p className="text-neutral-600 mb-4">Every product strategy carries risks. Acknowledging them explicitly and planning mitigations is a sign of product maturity:</p>
-              <DetailedList items={study.risks} />
-            </Section>
+            {study.roadmap && (
+              <Section id="roadmap" title="Roadmap & Next Steps">
+                <p className="text-neutral-600 mb-6">The roadmap is organized in a Now / Next / Later / Future framework to communicate both near-term commitments and long-term vision:</p>
+                <DetailedList items={study.roadmap} />
+                
+                {study.risks && (
+                  <>
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4 mt-10 text-neutral-900">Risks & Mitigations</h3>
+                    <p className="text-neutral-600 mb-4">Every product strategy carries risks. Acknowledging them explicitly and planning mitigations is a sign of product maturity:</p>
+                    <DetailedList items={study.risks} />
+                  </>
+                )}
+              </Section>
+            )}
 
             {study.failures && (
               <Section id="failures" title="Failures & Course Corrections">
@@ -479,10 +539,20 @@ export function CaseStudyLayout({ study }: { study: CaseStudy }) {
               </Section>
             )}
 
-            <Section id="reflection" title="Final Reflections">
-              <p className="text-neutral-600 mb-6">Looking back at the entire project, these are the most important takeaways that will inform how I approach the next product challenge:</p>
-              <DetailedList items={study.reflection} />
-            </Section>
+            {study.reflection && (
+              <Section id="reflection" title="Final Reflections">
+                <p className="text-neutral-600 mb-6">Looking back at the entire project, these are the most important takeaways that will inform how I approach the next product challenge:</p>
+                <DetailedList items={study.reflection} />
+              </Section>
+            )}
+            
+            {study.articleSections && study.articleSections.map(s => (
+              <Section key={s.title} id={s.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')} title={s.title}>
+                {s.content.split('\n\n').map((paragraph, i) => (
+                  <p key={i} className="text-base sm:text-lg text-neutral-700 leading-relaxed mb-4 font-normal whitespace-pre-wrap">{paragraph}</p>
+                ))}
+              </Section>
+            ))}
 
             {study.impact && (
               <Section id="impact" title="Business Impact">

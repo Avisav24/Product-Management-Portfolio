@@ -11,78 +11,68 @@ import { Footer } from "@/components/home/footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative overflow-hidden">
+    <main className="min-h-screen">
       
-      {/* Light Premium Navigation */}
-      <nav className="fixed left-0 right-0 top-0 z-50 bg-white/90 backdrop-blur-md border-b border-[var(--line)]">
-        <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 lg:px-20 py-4">
-          <Link href="/" className="text-sm font-bold tracking-tight text-[var(--ink)] hover:text-[var(--accent)] transition-colors">
+      {/* Top Nav */}
+      <nav className="h-[64px] bg-[var(--canvas)] flex items-center px-6 lg:px-12 sticky top-0 z-50">
+        <div className="flex-1 flex items-center gap-2">
+          {/* Anthropic/Claude style brand mark */}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--ink)" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0L14 10L24 12L14 14L12 24L10 14L0 12L10 10L12 0Z" />
+          </svg>
+          <Link href="/" className="font-bold text-[var(--ink)] text-lg tracking-wide">
             ABHINAV VATS
           </Link>
-          <div className="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
-            <Link href="#work" className="transition hover:text-[var(--accent)]">Work</Link>
-            <Link href="#experience" className="transition hover:text-[var(--accent)]">Experience</Link>
-            <Link href="#process" className="transition hover:text-[var(--accent)]">Process</Link>
-            <Link href="#contact" className="transition hover:text-[var(--accent)]">Contact</Link>
-          </div>
-          <Link 
-            href="#contact" 
-            className="hidden sm:inline-flex items-center justify-center h-10 px-6 rounded-full bg-[var(--accent)] text-white text-xs font-semibold hover:bg-[var(--accent-hover)] transition-all"
-          >
-            Get in Touch
+        </div>
+        
+        <div className="hidden md:flex items-center gap-8 text-[14px] font-medium text-[var(--ink)]">
+          <Link href="#work" className="hover:text-[var(--primary)] transition-colors">Work</Link>
+          <Link href="#process" className="hover:text-[var(--primary)] transition-colors">Process</Link>
+          <Link href="#experience" className="hover:text-[var(--primary)] transition-colors">Experience</Link>
+        </div>
+        
+        <div className="flex-1 flex justify-end items-center gap-4">
+          <Link href="#contact" className="btn-primary">
+            Contact Me
           </Link>
         </div>
       </nav>
 
-      <div className="relative mx-auto max-w-[1280px] px-6 lg:px-20 pt-16 pb-20">
+      {/* Main Container */}
+      <div className="page-container pb-24">
         
-        {/* Hero Section */}
-        <section className="section">
+        <section id="hero" className="section-spacing pt-12 md:pt-24">
           <Hero />
         </section>
 
-        {/* Selected Work / Case Studies */}
-        <section id="work" className="section">
+        <section id="work" className="section-spacing border-t border-[var(--hairline)]">
           <CaseStudies />
         </section>
 
-        <div className="divider" />
-
-        {/* How I Think - PM Principles */}
-        <section className="section">
+        <section id="process" className="section-spacing border-t border-[var(--hairline)]">
+          <Process />
+        </section>
+        
+        <section id="how-i-think" className="section-spacing border-t border-[var(--hairline)]">
           <HowIThink />
         </section>
 
-        {/* Product Playbook - Process */}
-        <section id="process" className="section">
-          <Process />
-        </section>
-
-        <div className="divider" />
-
-        {/* Experience Timeline */}
-        <section id="experience" className="section">
+        <section id="experience" className="section-spacing border-t border-[var(--hairline)]">
           <Experience />
         </section>
 
-        {/* Cross-Functional Strengths */}
-        <section className="section">
+        <section id="cross-functional" className="section-spacing border-t border-[var(--hairline)]">
           <CrossFunctional />
         </section>
 
-        <div className="divider" />
-
-        {/* Working Stack - Tools */}
-        <section className="section">
+        <section id="tools" className="section-spacing border-t border-[var(--hairline)]">
           <Tools />
         </section>
 
-        <div className="divider" />
-
-        {/* Contact CTA */}
-        <section id="contact" className="section">
+        <section id="contact" className="section-spacing border-t border-[var(--hairline)]">
           <Contact />
         </section>
+
       </div>
       
       <Footer />

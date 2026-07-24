@@ -34,7 +34,7 @@ export function Capabilities() {
             <ul className="space-y-4">
               {cap.skills.map((skill, i) => (
                 <li key={i} className="flex items-center text-sm text-neutral-400">
-                  <span className="mr-3 h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                  <span className="mr-3 h-1.5 w-1.5 rounded-none bg-indigo-500"></span>
                   {skill}
                 </li>
               ))}
