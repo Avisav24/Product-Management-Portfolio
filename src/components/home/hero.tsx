@@ -16,7 +16,7 @@ export function Hero() {
         </h1>
         
         <p className="type-title-md mb-8 text-[var(--body-strong)]">
-          I'm <span className="text-[var(--primary)] font-semibold">Abhinav Vats</span>, an aspiring Product Manager with a background in frontend development and UI/UX. I build student marketplaces, analyze supply-side friction, and design 90-day retention mechanics.
+          I&apos;m <span className="text-[var(--primary)] font-semibold">Abhinav Vats</span>, an aspiring Product Manager with a background in frontend development and UI/UX. I build student marketplaces, analyze supply-side friction, and design 90-day retention mechanics.
         </p>
         
         <div className="flex flex-wrap items-center gap-4">
@@ -32,16 +32,7 @@ export function Hero() {
       {/* Right Column: Interactive Cards Cluster */}
       <div className="w-full relative h-[400px] lg:h-[450px] rounded-[24px] overflow-visible group mt-8 lg:mt-0">
         
-        {/* Floating Background Icons */}
-        <div className="absolute top-4 left-10 w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.15)] opacity-80 group-hover:scale-110 transition-transform duration-700 delay-100">
-          <svg className="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="M18 9l-5 5-4-4-6 6"/></svg>
-        </div>
-        <div className="absolute top-1/4 right-8 w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.15)] opacity-80 group-hover:-translate-y-3 transition-transform duration-700">
-          <svg className="w-5 h-5 text-orange-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-        </div>
-        <div className="absolute bottom-12 left-12 w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.15)] opacity-80 group-hover:rotate-12 transition-transform duration-700 delay-200">
-          <svg className="w-5 h-5 text-purple-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/></svg>
-        </div>
+
 
         {/* Card 1: Gradely (Back Left) */}
         <div className="absolute top-[-5%] left-[0%] w-[220px] md:w-[240px] bg-white rounded-2xl shadow-xl border border-slate-100 p-5 transform -rotate-6 scale-90 opacity-80 group-hover:-translate-y-4 group-hover:-rotate-12 transition-all duration-700 ease-out z-10">

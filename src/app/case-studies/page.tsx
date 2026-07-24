@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { ArrowRight, Search, SlidersHorizontal } from "lucide-react";
 import { gradely, pronto, snabbit, ola } from "@/data/case-studies";
@@ -78,9 +79,11 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
     >
       {/* Top Logo Area */}
       <div className="relative flex h-48 w-full items-center justify-center bg-[var(--brand-soft)] transition-colors duration-500 group-hover:bg-[var(--brand)]/10">
-        <img
+        <Image
           src={`/assets/logo/${study.slug}.svg`}
           alt={`${study.company} logo`}
+          width={150}
+          height={48}
           className="h-12 w-auto object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-110"
         />
         {/* Badges */}
