@@ -51,7 +51,7 @@ export function Contact() {
           <Github size={20} />
         </a>
         <a 
-          href="https://drive.google.com/file/d/16LGhgyC4AS7sTafk1rpn-euvIyQE-J74/view?usp=sharing" 
+          href="https://drive.google.com/file/d/1IJVzZd-tq8lYZO20VCXYOQl7bTkBSZBk/view?usp=sharing" 
           target="_blank"
           rel="noopener noreferrer"
           className="h-12 w-12 flex items-center justify-center rounded-none border border-[var(--line)] text-[var(--ink-secondary)] hover:border-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--accent-soft)] transition-all"
